@@ -23,7 +23,7 @@ about uncertainty: it refuses to invent market prices and directs high-stakes de
 
 | Layer | Technology |
 |---|---|
-| Model | **Gemma 3 27B Instruct** (Google DeepMind, open weights) |
+| Model | **Llama 4 Maverick** (Meta, open weights — multilingual, handles Urdu) |
 | Inference | **Fireworks AI API** — AMD-hosted inference for this hackathon |
 | App | Streamlit (Python) |
 | Packaging | Docker |
@@ -52,7 +52,7 @@ streamlit run app.py
 | Env var | Default | Purpose |
 |---|---|---|
 | `FIREWORKS_API_KEY` | — (required) | Your Fireworks AI API key |
-| `FIREWORKS_MODEL` | `accounts/fireworks/models/gemma-3-27b-it` | Override the model |
+| `FIREWORKS_MODEL` | `accounts/fireworks/models/llama4-maverick-instruct-basic` | Override the model |
 
 ## Example questions
 

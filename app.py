@@ -6,7 +6,9 @@ import streamlit as st
 from system_prompt import SYSTEM_PROMPT
 
 FIREWORKS_API_URL = "https://api.fireworks.ai/inference/v1/chat/completions"
-MODEL = os.environ.get("FIREWORKS_MODEL", "accounts/fireworks/models/gemma-3-27b-it")
+MODEL = os.environ.get(
+    "FIREWORKS_MODEL", "accounts/fireworks/models/llama4-maverick-instruct-basic"
+)
 
 EXAMPLE_QUESTIONS = [
     "I have 5 acres in Multan, just harvested wheat. Water is short. What should I sow next?",
@@ -24,7 +26,7 @@ with st.sidebar:
         "sowing windows, and input costs, in English or Urdu."
     )
     st.markdown(
-        "**Stack:** Gemma 3 27B · Fireworks AI API (AMD-hosted inference) · Streamlit"
+        "**Stack:** Llama 4 Maverick · Fireworks AI API (AMD-hosted inference) · Streamlit"
     )
     st.caption(
         "Advisory tool only - confirm pesticide dosages and large decisions with your "

@@ -48,7 +48,7 @@
   <div class="badge">AMD Developer Hackathon: ACT II &middot; Unicorn Track</div>
   <h1>🌾 Crop Advisor Lite</h1>
   <div class="tag">AI crop advisory for Pakistan&rsquo;s 8&nbsp;million smallholder farmers &mdash; in English and Urdu.</div>
-  <div class="foot"><b>Gemma 3 27B</b> &middot; Fireworks AI (AMD-hosted inference) &middot; Streamlit &middot; Docker</div>
+  <div class="foot"><b>Llama 4 Maverick</b> &middot; Fireworks AI (AMD-hosted inference) &middot; Streamlit &middot; Docker</div>
 </div>
 
 <div class="slide">
@@ -79,7 +79,7 @@
 <div class="slide">
   <h2>Built on AMD</h2>
   <table>
-    <tr><td>Model</td><td><b>Gemma 3 27B Instruct</b> &mdash; Google DeepMind&rsquo;s open-weight model: multilingual, lightweight, ideal for low-cost farmer-facing advice</td></tr>
+    <tr><td>Model</td><td><b>Llama 4 Maverick</b> &mdash; Meta&rsquo;s open-weight model: multilingual (handles Urdu natively), served pay-per-token</td></tr>
     <tr><td>Inference</td><td><b>Fireworks AI API</b> &mdash; AMD-hosted inference for this hackathon; serverless, pay-per-token</td></tr>
     <tr><td>App</td><td>Streamlit (Python) &mdash; chat UI with example prompts in English and Urdu</td></tr>
     <tr><td>Packaging</td><td>Docker &mdash; one command to run anywhere: <span style="font-family:Menlo,monospace;font-size:18px;">docker run -p 8501:8501 -e FIREWORKS_API_KEY=&hellip;</span></td></tr>
@@ -93,7 +93,7 @@
     <li><b>Grounding:</b> retrieval over provincial extension guides and crop calendars, so every answer cites a real source.</li>
     <li><b>Urdu voice:</b> speech in/out for farmers who can&rsquo;t read or type comfortably.</li>
     <li><b>WhatsApp delivery:</b> meet farmers on the platform they already use daily.</li>
-    <li><b>Cost path:</b> Gemma&rsquo;s small footprint on AMD inference keeps per-farmer cost near zero &mdash; the unit economics of free advice.</li>
+    <li><b>Cost path:</b> open-weight models on AMD-hosted inference keep per-farmer cost near zero &mdash; the unit economics of free advice.</li>
   </ul>
   <div class="footer"><span>Crop Advisor Lite &mdash; built solo by a 17-year-old A-level student researching Pakistani agritech</span><span>AMD Developer Hackathon: ACT II</span></div>
 </div>
