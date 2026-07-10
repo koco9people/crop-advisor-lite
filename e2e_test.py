@@ -16,8 +16,10 @@ QUESTION = (
     "What should I sow next?"
 )
 
+API_BASE_URL = os.environ.get("API_BASE_URL", "https://api.fireworks.ai/inference/v1")
+
 response = requests.post(
-    "https://api.fireworks.ai/inference/v1/chat/completions",
+    f"{API_BASE_URL.rstrip('/')}/chat/completions",
     headers={"Authorization": f"Bearer {os.environ['FIREWORKS_API_KEY']}"},
     json={
         "model": os.environ.get(

@@ -5,7 +5,8 @@ import streamlit as st
 
 from system_prompt import SYSTEM_PROMPT
 
-FIREWORKS_API_URL = "https://api.fireworks.ai/inference/v1/chat/completions"
+API_BASE_URL = os.environ.get("API_BASE_URL", "https://api.fireworks.ai/inference/v1")
+CHAT_COMPLETIONS_URL = f"{API_BASE_URL.rstrip('/')}/chat/completions"
 MODEL = os.environ.get(
     "FIREWORKS_MODEL", "accounts/fireworks/models/llama4-maverick-instruct-basic"
 )
@@ -48,7 +49,7 @@ def ask_fireworks(messages: list[dict]) -> str:
             "`docker run -e FIREWORKS_API_KEY=...` or export it before running."
         )
     response = requests.post(
-        FIREWORKS_API_URL,
+        CHAT_COMPLETIONS_URL,
         headers={"Authorization": f"Bearer {api_key}"},
         json={
             "model": MODEL,

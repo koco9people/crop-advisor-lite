@@ -51,8 +51,9 @@ streamlit run app.py
 
 | Env var | Default | Purpose |
 |---|---|---|
-| `FIREWORKS_API_KEY` | — (required) | Your Fireworks AI API key |
+| `FIREWORKS_API_KEY` | — (required) | API key for the inference provider |
 | `FIREWORKS_MODEL` | `accounts/fireworks/models/llama4-maverick-instruct-basic` | Override the model |
+| `API_BASE_URL` | `https://api.fireworks.ai/inference/v1` | Any OpenAI-compatible endpoint |
 
 ## Example questions
 
