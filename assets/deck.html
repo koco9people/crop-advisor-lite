@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @page { size: 13.333in 7.5in; margin: 0; }
+  .slide {
+    width: 13.333in; height: 7.5in; page-break-after: always; overflow: hidden;
+    font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    padding: 0.85in 1in; position: relative; background: #fff; color: #17301c;
+    display: flex; flex-direction: column;
+  }
+  .slide.title {
+    background: linear-gradient(135deg, #14351f 0%, #1e5631 55%, #2e7d32 100%);
+    color: #fff; justify-content: center;
+  }
+  .badge {
+    display: inline-block; background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.25); border-radius: 999px;
+    padding: 5px 16px; font-size: 15px; margin-bottom: 22px; width: fit-content;
+  }
+  .title h1 { font-size: 62px; font-weight: 700; }
+  .title .tag { font-size: 25px; margin-top: 14px; color: #d9ecd0; max-width: 9.5in; line-height: 1.4; }
+  .title .foot { position: absolute; bottom: 0.7in; left: 1in; font-size: 17px; color: #a5c99a; }
+  .title .foot b { color: #fff; }
+  h2 { font-size: 40px; font-weight: 700; margin-bottom: 30px; color: #1e5631; }
+  .big { font-size: 25px; line-height: 1.55; max-width: 10.5in; }
+  ul.big li { margin-bottom: 16px; margin-left: 28px; }
+  .num { color: #2e7d32; font-weight: 700; }
+  .footer { position: absolute; bottom: 0.5in; left: 1in; right: 1in; font-size: 14px; color: #8aa88f; display: flex; justify-content: space-between; }
+  table { border-collapse: collapse; font-size: 23px; margin-top: 6px; }
+  td { padding: 13px 26px 13px 0; vertical-align: top; }
+  td:first-child { font-weight: 600; color: #1e5631; white-space: nowrap; }
+  .mock {
+    border: 1px solid #d5e2d5; border-radius: 14px; padding: 24px 28px; margin-top: 8px;
+    background: #f6faf6; font-size: 19px; line-height: 1.5; max-width: 10in;
+    box-shadow: 0 2px 10px rgba(20,53,31,.08);
+  }
+  .mock .q { background: #1e5631; color: #fff; border-radius: 12px; padding: 10px 16px; width: fit-content; max-width: 8in; margin-bottom: 14px; }
+  .mock .a { background: #fff; border: 1px solid #e0e8e0; border-radius: 12px; padding: 12px 16px; max-width: 9in; }
+  .mock .a b { color: #1e5631; }
+</style>
+</head>
+<body>
+
+<div class="slide title">
+  <div class="badge">AMD Developer Hackathon: ACT II &middot; Unicorn Track</div>
+  <h1>🌾 Crop Advisor Lite</h1>
+  <div class="tag">AI crop advisory for Pakistan&rsquo;s 8&nbsp;million smallholder farmers &mdash; in English and Urdu.</div>
+  <div class="foot"><b>Gemma 3 27B</b> &middot; Fireworks AI (AMD-hosted inference) &middot; Streamlit &middot; Docker</div>
+</div>
+
+<div class="slide">
+  <h2>The problem</h2>
+  <ul class="big">
+    <li><span class="num">8M+</span> smallholder farms in Pakistan (1&ndash;12 acres) drive the country&rsquo;s food supply.</li>
+    <li>Most farmers have <b>no affordable access to agronomic advice</b>: what to sow after harvest, when the sowing window closes, what an acre costs in inputs.</li>
+    <li>Government extension services are stretched thin; advice travels by word of mouth &mdash; often late, often wrong.</li>
+    <li>Bad crop decisions compound: one wrong season can wipe out a smallholder&rsquo;s yearly margin.</li>
+  </ul>
+  <div class="footer"><span>Crop Advisor Lite</span><span>AMD Developer Hackathon: ACT II</span></div>
+</div>
+
+<div class="slide">
+  <h2>The solution &mdash; a chat advisor in the farmer&rsquo;s own language</h2>
+  <div class="mock">
+    <div class="q">I have 5 acres in Multan, just harvested wheat. Water is short. What should I sow next?</div>
+    <div class="a"><b>Crop Advisor Lite:</b> With short water after wheat in Multan, consider <b>mungbean</b> (60&ndash;90 day crop, low water, fixes nitrogen) or <b>sesame</b> before the cotton window. Avoid rice this kharif &mdash; it needs far more water than a tubewell can affordably supply. Rough input cost for mungbean: PKR 25,000&ndash;40,000/acre&hellip;</div>
+  </div>
+  <ul class="big" style="margin-top:22px; font-size:22px;">
+    <li>Decision-ready answers: named crops, months, rupee ranges &mdash; not vague generalities.</li>
+    <li>English in, English out. Urdu in, Urdu out.</li>
+    <li>Honest about limits: refuses to invent market prices; routes high-stakes calls to extension offices.</li>
+  </ul>
+  <div class="footer"><span>Crop Advisor Lite</span><span>AMD Developer Hackathon: ACT II</span></div>
+</div>
+
+<div class="slide">
+  <h2>Built on AMD</h2>
+  <table>
+    <tr><td>Model</td><td><b>Gemma 3 27B Instruct</b> &mdash; Google DeepMind&rsquo;s open-weight model: multilingual, lightweight, ideal for low-cost farmer-facing advice</td></tr>
+    <tr><td>Inference</td><td><b>Fireworks AI API</b> &mdash; AMD-hosted inference for this hackathon; serverless, pay-per-token</td></tr>
+    <tr><td>App</td><td>Streamlit (Python) &mdash; chat UI with example prompts in English and Urdu</td></tr>
+    <tr><td>Packaging</td><td>Docker &mdash; one command to run anywhere: <span style="font-family:Menlo,monospace;font-size:18px;">docker run -p 8501:8501 -e FIREWORKS_API_KEY=&hellip;</span></td></tr>
+  </table>
+  <div class="footer"><span>Crop Advisor Lite</span><span>AMD Developer Hackathon: ACT II</span></div>
+</div>
+
+<div class="slide">
+  <h2>What&rsquo;s next</h2>
+  <ul class="big">
+    <li><b>Grounding:</b> retrieval over provincial extension guides and crop calendars, so every answer cites a real source.</li>
+    <li><b>Urdu voice:</b> speech in/out for farmers who can&rsquo;t read or type comfortably.</li>
+    <li><b>WhatsApp delivery:</b> meet farmers on the platform they already use daily.</li>
+    <li><b>Cost path:</b> Gemma&rsquo;s small footprint on AMD inference keeps per-farmer cost near zero &mdash; the unit economics of free advice.</li>
+  </ul>
+  <div class="footer"><span>Crop Advisor Lite &mdash; built solo by a 17-year-old A-level student researching Pakistani agritech</span><span>AMD Developer Hackathon: ACT II</span></div>
+</div>
+
+</body>
+</html>

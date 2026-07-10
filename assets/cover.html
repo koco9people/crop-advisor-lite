@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 720px; overflow: hidden;
+    font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(135deg, #14351f 0%, #1e5631 55%, #2e7d32 100%);
+    color: #fff; display: flex; flex-direction: column;
+    justify-content: center; padding: 0 96px; position: relative;
+  }
+  .wheat { font-size: 96px; margin-bottom: 24px; }
+  h1 { font-size: 88px; font-weight: 700; letter-spacing: -1px; }
+  .tag { font-size: 34px; margin-top: 20px; color: #d9ecd0; font-weight: 400; max-width: 950px; line-height: 1.35; }
+  .stack {
+    position: absolute; bottom: 56px; left: 96px; right: 96px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 24px; color: #a5c99a;
+  }
+  .stack b { color: #fff; font-weight: 600; }
+  .badge {
+    display: inline-block; background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.25); border-radius: 999px;
+    padding: 8px 22px; font-size: 22px; color: #fff; margin-bottom: 28px;
+    width: fit-content;
+  }
+</style>
+</head>
+<body>
+  <div class="badge">AMD Developer Hackathon: ACT II &middot; Unicorn Track</div>
+  <div class="wheat">🌾</div>
+  <h1>Crop Advisor Lite</h1>
+  <div class="tag">AI crop advisory for Pakistan&rsquo;s 8&nbsp;million smallholder farmers &mdash; in English and Urdu.</div>
+  <div class="stack">
+    <span><b>Gemma 3 27B</b> &middot; Fireworks AI &middot; AMD-hosted inference</span>
+    <span>Streamlit &middot; Docker</span>
+  </div>
+</body>
+</html>
