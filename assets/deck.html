@@ -48,7 +48,7 @@
   <div class="badge">AMD Developer Hackathon: ACT II &middot; Unicorn Track</div>
   <h1>🌾 Crop Advisor Lite</h1>
   <div class="tag">AI crop advisory for Pakistan&rsquo;s 8&nbsp;million smallholder farmers &mdash; in English and Urdu.</div>
-  <div class="foot"><b>Llama 4 Maverick</b> &middot; Fireworks AI (AMD-hosted inference) &middot; Streamlit &middot; Docker</div>
+  <div class="foot"><b>Meta Llama 4</b> &middot; Fireworks AI (AMD-hosted inference) &middot; Streamlit &middot; Docker</div>
 </div>
 
 <div class="slide">
@@ -66,7 +66,8 @@
   <h2>The solution &mdash; a chat advisor in the farmer&rsquo;s own language</h2>
   <div class="mock">
     <div class="q">I have 5 acres in Multan, just harvested wheat. Water is short. What should I sow next?</div>
-    <div class="a"><b>Crop Advisor Lite:</b> With short water after wheat in Multan, consider <b>mungbean</b> (60&ndash;90 day crop, low water, fixes nitrogen) or <b>sesame</b> before the cotton window. Avoid rice this kharif &mdash; it needs far more water than a tubewell can affordably supply. Rough input cost for mungbean: PKR 25,000&ndash;40,000/acre&hellip;</div>
+    <div class="a"><b>Crop Advisor Lite:</b> &ldquo;For a 5-acre farm in Multan, sown after wheat harvest, consider: <b>Cotton</b> &mdash; sowing window May&ndash;June&hellip; <b>Maize</b>&hellip; <b>Mung bean (Moong)</b>: a drought-tolerant pulse crop. Sowing window: June&ndash;July. Total: PKR 5,400&ndash;9,800 per acre&hellip; cotton requires more water than maize and mung bean. Consult your local Zarai Taraqiati office or a qualified agronomist for specific advice.&rdquo;</div>
+    <div style="font-size:15px;color:#8aa88f;margin-top:10px;">Actual model output (Meta Llama 4, truncated) &mdash; not a mockup.</div>
   </div>
   <ul class="big" style="margin-top:22px; font-size:22px;">
     <li>Decision-ready answers: named crops, months, rupee ranges &mdash; not vague generalities.</li>
@@ -79,7 +80,7 @@
 <div class="slide">
   <h2>Built on AMD</h2>
   <table>
-    <tr><td>Model</td><td><b>Llama 4 Maverick</b> &mdash; Meta&rsquo;s open-weight model: multilingual (handles Urdu natively), served pay-per-token</td></tr>
+    <tr><td>Model</td><td><b>Meta Llama 4</b> &mdash; open-weight, multilingual (handles Urdu natively); any OpenAI-compatible host via <span style="font-family:Menlo,monospace;font-size:18px;">API_BASE_URL</span></td></tr>
     <tr><td>Inference</td><td><b>Fireworks AI API</b> &mdash; AMD-hosted inference for this hackathon; serverless, pay-per-token</td></tr>
     <tr><td>App</td><td>Streamlit (Python) &mdash; chat UI with example prompts in English and Urdu</td></tr>
     <tr><td>Packaging</td><td>Docker &mdash; one command to run anywhere: <span style="font-family:Menlo,monospace;font-size:18px;">docker run -p 8501:8501 -e FIREWORKS_API_KEY=&hellip;</span></td></tr>

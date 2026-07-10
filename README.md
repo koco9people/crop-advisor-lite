@@ -23,7 +23,7 @@ about uncertainty: it refuses to invent market prices and directs high-stakes de
 
 | Layer | Technology |
 |---|---|
-| Model | **Llama 4 Maverick** (Meta, open weights — multilingual, handles Urdu) |
+| Model | **Meta Llama 4** (open weights — multilingual, handles Urdu; Maverick on Fireworks by default, Scout on Groq via `API_BASE_URL`) |
 | Inference | **Fireworks AI API** — AMD-hosted inference for this hackathon |
 | App | Streamlit (Python) |
 | Packaging | Docker |

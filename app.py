@@ -27,7 +27,7 @@ with st.sidebar:
         "sowing windows, and input costs, in English or Urdu."
     )
     st.markdown(
-        "**Stack:** Llama 4 Maverick · Fireworks AI API (AMD-hosted inference) · Streamlit"
+        "**Stack:** Meta Llama 4 · Fireworks AI API (AMD-hosted inference) · Streamlit"
     )
     st.caption(
         "Advisory tool only - confirm pesticide dosages and large decisions with your "
