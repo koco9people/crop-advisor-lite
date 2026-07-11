@@ -1,6 +1,6 @@
 import streamlit as st
 
-from core import ask_llm, ground
+from core import ask_llm_stream, ground
 from retrieval import DOC_COUNT
 
 EXAMPLE_QUESTIONS = [
@@ -63,11 +63,10 @@ if prompt:
     api_messages[-1] = {"role": "user", "content": grounded_content}
     with st.chat_message("assistant"):
         try:
-            with st.spinner("Thinking..."):
-                answer = ask_llm(api_messages)
+            answer = st.write_stream(ask_llm_stream(api_messages))
         except Exception as exc:
             answer = f"⚠️ Could not reach the model: {exc}"
-        st.markdown(answer)
+            st.markdown(answer)
         if passages:
             with st.expander(f"📚 Sources used ({len(passages)} passages)"):
                 for p in passages:

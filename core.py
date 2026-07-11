@@ -66,3 +66,38 @@ def ask_llm(messages: list[dict], temperature: float = 0.6, max_tokens: int = 10
     )
     response.raise_for_status()
     return response.json()["choices"][0]["message"]["content"]
+
+
+def ask_llm_stream(messages: list[dict], temperature: float = 0.6, max_tokens: int = 1024):
+    """Yield answer fragments as the model generates them (server-sent events)."""
+    import json as _json
+
+    api_key = os.environ.get("FIREWORKS_API_KEY")
+    if not api_key:
+        raise RuntimeError(
+            "FIREWORKS_API_KEY is not set. Pass it with "
+            "`docker run -e FIREWORKS_API_KEY=...` or export it before running."
+        )
+    response = requests.post(
+        CHAT_COMPLETIONS_URL,
+        headers={"Authorization": f"Bearer {api_key}"},
+        json={
+            "model": MODEL,
+            "messages": [{"role": "system", "content": SYSTEM_PROMPT}] + messages,
+            "max_tokens": max_tokens,
+            "temperature": temperature,
+            "stream": True,
+        },
+        timeout=60,
+        stream=True,
+    )
+    response.raise_for_status()
+    for line in response.iter_lines():
+        if not line or not line.startswith(b"data: "):
+            continue
+        payload = line[len(b"data: "):]
+        if payload.strip() == b"[DONE]":
+            break
+        delta = _json.loads(payload)["choices"][0].get("delta", {})
+        if "content" in delta and delta["content"]:
+            yield delta["content"]
