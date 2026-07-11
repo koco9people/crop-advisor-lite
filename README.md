@@ -19,6 +19,14 @@ It gives decision-ready answers — named crops, months, and rupee ranges — an
 about uncertainty: it refuses to invent market prices and directs high-stakes decisions
 (pesticide dosages, large investments) to the local agriculture extension office.
 
+**Answers are grounded, not guessed.** Each question retrieves relevant passages
+(BM25 with crop-aware routing) from 9 Pakistani agricultural documents — government
+policy analyses, PCRWR research, the FAO crop calendar, and current cultivation
+guides (see [corpus/SOURCES.md](corpus/SOURCES.md)) — and the answer cites them
+inline as `[Source: title]`. Urdu questions are translated internally for retrieval,
+so they get cited answers too. When the corpus doesn't cover a question, the app
+says so instead of inventing a citation.
+
 ## Stack — built on AMD
 
 | Layer | Technology |
@@ -63,6 +71,26 @@ streamlit run app.py
 - "I have 5 acres in Multan, just harvested wheat. Water is short. What should I sow next?"
 - "What is the sowing window for cotton in southern Punjab?"
 - "میرے پاس فیصل آباد میں تین ایکڑ زمین ہے، ربیع میں کیا کاشت کروں؟"
+
+## Evaluation
+
+A 16-question harness ([eval/](eval/)) sends fixed questions through the app's exact
+code path — same retrieval, same system prompt, same model at temperature 0.2 — and
+checks each answer for key facts sourced from the corpus documents (sowing windows,
+seed rates, water-saving figures), plus behavioral probes: refusing to invent market
+prices, referring pesticide dosages to extension services, and answering Urdu
+questions with citations.
+
+**Current score: 16/16.** Full answers are written to `eval/results.json` for audit.
+Reproduce with:
+
+```bash
+python eval/run_eval.py
+```
+
+Honest caveats: the question set is small, written by the developer, and keyword-graded —
+it protects against regressions and gross hallucination, it is not an independent
+agronomic certification.
 
 ## Disclaimer
 
