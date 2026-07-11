@@ -39,6 +39,9 @@ docker run -p 8501:8501 -e FIREWORKS_API_KEY=your_key_here crop-advisor
 
 Open http://localhost:8501 and ask a question.
 
+> Tested end-to-end against Groq's OpenAI-compatible endpoint (see Configuration);
+> Fireworks AI is the shipped default.
+
 ## Quickstart (local Python)
 
 ```bash
