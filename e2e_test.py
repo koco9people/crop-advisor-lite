@@ -9,11 +9,20 @@ import os
 
 import requests
 
+from retrieval import build_reference_block, retrieve
 from system_prompt import SYSTEM_PROMPT
 
 QUESTION = (
     "I have 5 acres in Multan, just harvested wheat. Water is short. "
     "What should I sow next?"
+)
+
+passages = retrieve(QUESTION)
+print(f"RETRIEVED: {len(passages)} passages")
+for p in passages:
+    print(f"  {p['score']:6.2f}  {p['title'][:60]}")
+user_content = (
+    f"{QUESTION}\n\n---\n{build_reference_block(passages)}" if passages else QUESTION
 )
 
 API_BASE_URL = os.environ.get("API_BASE_URL", "https://api.fireworks.ai/inference/v1")
@@ -28,7 +37,7 @@ response = requests.post(
         ),
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": QUESTION},
+            {"role": "user", "content": user_content},
         ],
         "max_tokens": 1024,
         "temperature": 0.6,

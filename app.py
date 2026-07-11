@@ -3,6 +3,7 @@ import os
 import requests
 import streamlit as st
 
+from retrieval import DOC_COUNT, build_reference_block, retrieve
 from system_prompt import SYSTEM_PROMPT
 
 API_BASE_URL = os.environ.get("API_BASE_URL", "https://api.fireworks.ai/inference/v1")
@@ -28,6 +29,10 @@ with st.sidebar:
     )
     st.markdown(
         "**Stack:** Meta Llama 4 · Fireworks AI API (AMD-hosted inference) · Streamlit"
+    )
+    st.markdown(
+        f"**Grounding:** answers cite passages retrieved (BM25) from "
+        f"{DOC_COUNT} Pakistani agricultural documents — see `corpus/SOURCES.md`."
     )
     st.caption(
         "Advisory tool only - confirm pesticide dosages and large decisions with your "
@@ -84,11 +89,23 @@ if prompt:
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
+    passages = retrieve(prompt)
+    api_messages = list(st.session_state.messages)
+    if passages:
+        api_messages[-1] = {
+            "role": "user",
+            "content": f"{prompt}\n\n---\n{build_reference_block(passages)}",
+        }
     with st.chat_message("assistant"):
         try:
             with st.spinner("Thinking..."):
-                answer = ask_fireworks(st.session_state.messages)
+                answer = ask_fireworks(api_messages)
         except Exception as exc:
             answer = f"⚠️ Could not reach the model: {exc}"
         st.markdown(answer)
+        if passages:
+            with st.expander(f"📚 Sources used ({len(passages)} passages)"):
+                for p in passages:
+                    st.markdown(f"**{p['title']}** ({p['year']}, {p['tier']}) — relevance {p['score']}")
+                    st.caption(p["text"][:400] + "…")
     st.session_state.messages.append({"role": "assistant", "content": answer})
