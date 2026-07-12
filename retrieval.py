@@ -18,7 +18,9 @@ _HEADER_RE = re.compile(r"<!--\n(.*?)\n-->", re.DOTALL)
 
 
 def _tokenize(text: str) -> list[str]:
-    return re.findall(r"[a-z0-9]+", text.lower())
+    # Latin tokens plus Arabic-script tokens, so Urdu documents and queries
+    # index and match directly.
+    return re.findall(r"[a-z0-9]+|[؀-ۿ]+", text.lower())
 
 
 def _parse_header(text: str) -> dict:

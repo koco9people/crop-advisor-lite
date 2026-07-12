@@ -38,8 +38,25 @@ def _retrieval_query(question: str) -> str:
 
 
 def ground(question: str) -> tuple[str, list[dict]]:
-    """Return (augmented user content, retrieved passages) for a question."""
-    passages = retrieve(_retrieval_query(question))
+    """Return (augmented user content, retrieved passages) for a question.
+
+    Non-English questions retrieve twice — original script (matches Urdu
+    corpus documents directly) and English translation (matches the English
+    majority of the corpus) — then results merge best-first.
+    """
+    queries = [question]
+    translated = _retrieval_query(question)
+    if translated != question:
+        queries.append(translated)
+    seen, merged = set(), []
+    for q in queries:
+        for p in retrieve(q):
+            key = p["text"][:80]
+            if key not in seen:
+                seen.add(key)
+                merged.append(p)
+    merged.sort(key=lambda p: p["score"], reverse=True)
+    passages = merged[:3]
     if not passages:
         return question, []
     return f"{question}\n\n---\n{build_reference_block(passages)}", passages

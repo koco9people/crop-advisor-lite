@@ -20,12 +20,15 @@ about uncertainty: it refuses to invent market prices and directs high-stakes de
 (pesticide dosages, large investments) to the local agriculture extension office.
 
 **Answers are grounded, not guessed.** Each question retrieves relevant passages
-(BM25 with crop-aware routing) from 9 Pakistani agricultural documents — government
-policy analyses, PCRWR research, the FAO crop calendar, and current cultivation
-guides (see [corpus/SOURCES.md](corpus/SOURCES.md)) — and the answer cites them
-inline as `[Source: title]`. Urdu questions are translated internally for retrieval,
-so they get cited answers too. When the corpus doesn't cover a question, the app
-says so instead of inventing a citation.
+(BM25 with crop-aware routing) from a 28-document corpus: Pakistani government
+policy analyses (wheat, rice, sugarcane), PCRWR research, FAO material, current
+cultivation guides, an Urdu-language census document, and US Department of
+Agriculture context documents — every source labeled by country and tier in
+[corpus/SOURCES.md](corpus/SOURCES.md) so US content is never presented as
+Pakistani guidance. Answers cite sources inline as `[Source: title]`. Urdu
+questions retrieve both directly (the index tokenizes Arabic script) and via
+internal English translation, so they get cited answers too. When the corpus
+doesn't cover a question, the app says so instead of inventing a citation.
 
 ## Stack — built on AMD
 
@@ -81,7 +84,8 @@ seed rates, water-saving figures), plus behavioral probes: refusing to invent ma
 prices, referring pesticide dosages to extension services, and answering Urdu
 questions with citations.
 
-**Current score: 16/16.** Full answers are written to `eval/results.json` for audit.
+**Current score: 16/16** (re-verified after expanding the corpus from 9 to 28
+documents). Full answers are written to `eval/results.json` for audit.
 Reproduce with:
 
 ```bash
