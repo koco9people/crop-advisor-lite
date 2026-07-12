@@ -7,3 +7,5 @@ __pycache__
 assets
 .gitignore
 .dockerignore
+.agents
+.claude

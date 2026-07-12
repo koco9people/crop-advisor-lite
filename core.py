@@ -115,6 +115,9 @@ def ask_llm_stream(messages: list[dict], temperature: float = 0.6, max_tokens: i
         payload = line[len(b"data: "):]
         if payload.strip() == b"[DONE]":
             break
-        delta = _json.loads(payload)["choices"][0].get("delta", {})
+        try:
+            delta = _json.loads(payload)["choices"][0].get("delta", {})
+        except (ValueError, KeyError, IndexError):
+            continue  # skip any malformed/keep-alive line rather than abort the stream
         if "content" in delta and delta["content"]:
             yield delta["content"]
