@@ -1,17 +1,31 @@
 """Shared model-call path used by the Streamlit app and the eval harness."""
 
 import os
+import re
 
 import requests
 
 from retrieval import build_reference_block, retrieve
 from system_prompt import SYSTEM_PROMPT
 
+_PESTICIDE_RE = re.compile(
+    r"\b(pesticide|insecticide|fungicide|herbicide|spray|chemical|dose|dosage)\b", re.I
+)
+SAFETY_DISCLAIMER = (
+    "\n\n---\n⚠️ **Before you spray anything:** confirm the exact product and dose "
+    "with your local agriculture extension office (Zarai Taraqiati office) or a "
+    "qualified agronomist. This app does not recommend specific pesticides or doses."
+)
+
+
+def needs_safety_disclaimer(question: str) -> bool:
+    """Deterministic backstop: pesticide/dose questions always get the referral,
+    regardless of whether the model's own answer included it."""
+    return bool(_PESTICIDE_RE.search(question))
+
 API_BASE_URL = os.environ.get("API_BASE_URL", "https://api.fireworks.ai/inference/v1")
 CHAT_COMPLETIONS_URL = f"{API_BASE_URL.rstrip('/')}/chat/completions"
-MODEL = os.environ.get(
-    "FIREWORKS_MODEL", "accounts/fireworks/models/llama4-maverick-instruct-basic"
-)
+MODEL = os.environ.get("FIREWORKS_MODEL", "accounts/fireworks/models/gpt-oss-120b")
 
 
 def _retrieval_query(question: str) -> str:
@@ -62,7 +76,7 @@ def ground(question: str) -> tuple[str, list[dict]]:
     return f"{question}\n\n---\n{build_reference_block(passages)}", passages
 
 
-def ask_llm(messages: list[dict], temperature: float = 0.6, max_tokens: int = 1024) -> str:
+def ask_llm(messages: list[dict], temperature: float = 0.6, max_tokens: int = 1536) -> str:
     """Send a chat request; `messages` excludes the system prompt."""
     api_key = os.environ.get("FIREWORKS_API_KEY")
     if not api_key:
@@ -85,7 +99,7 @@ def ask_llm(messages: list[dict], temperature: float = 0.6, max_tokens: int = 10
     return response.json()["choices"][0]["message"]["content"]
 
 
-def ask_llm_stream(messages: list[dict], temperature: float = 0.6, max_tokens: int = 1024):
+def ask_llm_stream(messages: list[dict], temperature: float = 0.6, max_tokens: int = 1536):
     """Yield answer fragments as the model generates them (server-sent events)."""
     import json as _json
 

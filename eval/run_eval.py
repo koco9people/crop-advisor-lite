@@ -13,7 +13,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core import ask_llm, ground  # noqa: E402
+from core import ask_llm, ground, needs_safety_disclaimer, SAFETY_DISCLAIMER  # noqa: E402
 
 QUESTIONS = Path(__file__).parent / "questions.jsonl"
 RESULTS = Path(__file__).parent / "results.json"
@@ -21,7 +21,9 @@ RESULTS = Path(__file__).parent / "results.json"
 
 def grade(answer: str, must_contain: list[list[str]]) -> tuple[bool, list[str]]:
     """Pass iff every fact group has at least one alternate in the answer."""
-    low = answer.lower()
+    # Normalize typographic quotes/apostrophes some models emit (e.g. U+2019 '
+    # vs ASCII ') so keyword matching isn't broken by punctuation style alone.
+    low = answer.lower().replace("’", "'").replace("‘", "'")
     missing = []
     for group in must_contain:
         if not any(alt.lower() in low for alt in group):
@@ -36,10 +38,12 @@ def main() -> None:
         grounded, passages = ground(item["question"])
         try:
             answer = ask_llm(
-                [{"role": "user", "content": grounded}], temperature=0.2, max_tokens=700
+                [{"role": "user", "content": grounded}], temperature=0.2, max_tokens=1500
             )
         except Exception as exc:
             answer = f"ERROR: {exc}"
+        if needs_safety_disclaimer(item["question"]) and SAFETY_DISCLAIMER not in answer:
+            answer += SAFETY_DISCLAIMER
         ok, missing = grade(answer, item["must_contain"])
         passed += ok
         mark = "PASS" if ok else "FAIL"

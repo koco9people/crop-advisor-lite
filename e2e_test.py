@@ -33,7 +33,7 @@ response = requests.post(
     json={
         "model": os.environ.get(
             "FIREWORKS_MODEL",
-            "accounts/fireworks/models/llama4-maverick-instruct-basic",
+            "accounts/fireworks/models/gpt-oss-120b",
         ),
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},

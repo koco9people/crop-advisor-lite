@@ -36,7 +36,7 @@ doesn't cover a question, the app says so instead of inventing a citation.
 
 | Layer | Technology |
 |---|---|
-| Model | **Meta Llama 4** (open weights — multilingual, handles Urdu; Maverick on Fireworks by default, Scout on Groq via `API_BASE_URL`) |
+| Model | **gpt-oss-120b** (OpenAI, open weights) via Fireworks — served on AMD-hosted inference; any OpenAI-compatible host works via `API_BASE_URL` |
 | Inference | **Fireworks AI API** — AMD-hosted inference for this hackathon |
 | App | Streamlit (Python) |
 | Packaging | Docker |
@@ -52,8 +52,8 @@ docker run -p 8501:8501 -e FIREWORKS_API_KEY=your_key_here crop-advisor
 
 Open http://localhost:8501 and ask a question.
 
-> Tested end-to-end against Groq's OpenAI-compatible endpoint (see Configuration);
-> Fireworks AI is the shipped default.
+> Tested end-to-end on Fireworks AI (AMD-hosted inference) — the shipped default.
+> Any OpenAI-compatible endpoint works via `API_BASE_URL` (see Configuration).
 
 ## Quickstart (local Python)
 
@@ -68,7 +68,7 @@ streamlit run app.py
 | Env var | Default | Purpose |
 |---|---|---|
 | `FIREWORKS_API_KEY` | — (required) | API key for the inference provider |
-| `FIREWORKS_MODEL` | `accounts/fireworks/models/llama4-maverick-instruct-basic` | Override the model |
+| `FIREWORKS_MODEL` | `accounts/fireworks/models/gpt-oss-120b` | Override the model |
 | `API_BASE_URL` | `https://api.fireworks.ai/inference/v1` | Any OpenAI-compatible endpoint |
 
 ## Example questions

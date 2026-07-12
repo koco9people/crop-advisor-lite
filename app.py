@@ -1,6 +1,6 @@
 import streamlit as st
 
-from core import ask_llm_stream, ground
+from core import ask_llm_stream, ground, needs_safety_disclaimer, SAFETY_DISCLAIMER
 from retrieval import DOC_COUNT
 
 EXAMPLE_QUESTIONS = [
@@ -19,7 +19,7 @@ with st.sidebar:
         "sowing windows, and input costs, in English or Urdu."
     )
     st.markdown(
-        "**Stack:** Meta Llama 4 · Fireworks AI API (AMD-hosted inference) · Streamlit"
+        "**Stack:** gpt-oss-120b (open-weight) · Fireworks AI API (AMD-hosted inference) · Streamlit"
     )
     st.markdown(
         f"**Grounding:** answers cite passages retrieved (BM25) from "
@@ -67,6 +67,14 @@ if prompt:
         except Exception as exc:
             answer = f"⚠️ Could not reach the model: {exc}"
             st.markdown(answer)
+        if needs_safety_disclaimer(prompt) and SAFETY_DISCLAIMER not in answer:
+            st.warning(
+                "Before you spray anything: confirm the exact product and dose with "
+                "your local agriculture extension office (Zarai Taraqiati office) or "
+                "a qualified agronomist. This app does not recommend specific "
+                "pesticides or doses."
+            )
+            answer += SAFETY_DISCLAIMER
         if passages:
             with st.expander(f"📚 Sources used ({len(passages)} passages)"):
                 for p in passages:
