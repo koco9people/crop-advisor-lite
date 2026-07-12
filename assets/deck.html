@@ -47,7 +47,7 @@
 <div class="slide title">
   <div class="badge">AMD Developer Hackathon: ACT II &middot; Unicorn Track</div>
   <h1>🌾 Crop Advisor Lite</h1>
-  <div class="tag">AI crop advisory for Pakistan&rsquo;s 8&nbsp;million smallholder farmers &mdash; in English and Urdu.</div>
+  <div class="tag">AI crop advisory for Pakistan&rsquo;s 8&nbsp;million smallholder farmers &mdash; understands English and Urdu, always answers in English.</div>
   <div class="foot"><b>gpt-oss-120b</b> &middot; Fireworks AI (AMD-hosted inference) &middot; Streamlit &middot; Docker</div>
 </div>
 
@@ -71,7 +71,7 @@
   </div>
   <ul class="big" style="margin-top:22px; font-size:22px;">
     <li>Decision-ready answers: named crops, months, rupee ranges &mdash; not vague generalities.</li>
-    <li>English in, English out. Urdu in, Urdu out.</li>
+    <li>Understands English or Urdu questions; always answers in English.</li>
     <li>Honest about limits: refuses to invent market prices; routes high-stakes calls to extension offices.</li>
   </ul>
   <div class="footer"><span>Crop Advisor Lite</span><span>AMD Developer Hackathon: ACT II</span></div>
@@ -81,10 +81,10 @@
   <h2>Built on AMD</h2>
   <table>
     <tr><td>Model</td><td><b>gpt-oss-120b</b> (OpenAI, open-weight) &mdash; served via Fireworks on AMD-hosted inference; any OpenAI-compatible host via <span style="font-family:Menlo,monospace;font-size:18px;">API_BASE_URL</span></td></tr>
-    <tr><td>Grounding</td><td><b>BM25 retrieval</b> with crop-aware routing over 9 Pakistani agricultural documents (govt policy, PCRWR research, FAO calendar) &mdash; answers cite sources inline; Urdu questions are translated internally so they cite too</td></tr>
+    <tr><td>Grounding</td><td><b>BM25 retrieval</b> with crop-aware routing over 40 Pakistani agricultural documents (govt policy, PCRWR research, FAO calendar) &mdash; answers cite sources inline; Urdu questions are translated internally so they retrieve and cite too</td></tr>
     <tr><td>Evaluation</td><td><b>16/16</b> on a corpus-grounded eval harness incl. honesty probes (refuses to invent market prices) &mdash; reproducible via <span style="font-family:Menlo,monospace;font-size:18px;">eval/run_eval.py</span></td></tr>
     <tr><td>Inference</td><td><b>Fireworks AI API</b> &mdash; AMD-hosted inference for this hackathon; serverless, pay-per-token</td></tr>
-    <tr><td>App</td><td>Streamlit (Python) &mdash; chat UI with example prompts in English and Urdu</td></tr>
+    <tr><td>App</td><td>Streamlit (Python) &mdash; chat UI; accepts English or Urdu questions, answers always in English</td></tr>
     <tr><td>Packaging</td><td>Docker &mdash; one command to run anywhere: <span style="font-family:Menlo,monospace;font-size:18px;">docker run -p 8501:8501 -e FIREWORKS_API_KEY=&hellip;</span></td></tr>
   </table>
   <div class="footer"><span>Crop Advisor Lite</span><span>AMD Developer Hackathon: ACT II</span></div>
@@ -95,7 +95,7 @@
   <ul class="big">
     <li><b>Done &mdash; grounding:</b> answers cite retrieved passages from 9 Pakistani agricultural documents; no relevant source means the app says so instead of inventing one.</li>
     <li><b>Done &mdash; measured accuracy:</b> 16/16 on a reproducible eval harness with honesty and safety probes.</li>
-    <li><b>Next &mdash; Urdu voice:</b> speech in/out for farmers who can&rsquo;t read or type comfortably.</li>
+    <li><b>Next &mdash; Urdu voice + response:</b> speech in/out, and full Urdu-language answers for farmers who can&rsquo;t read or type comfortably.</li>
     <li><b>Next &mdash; WhatsApp delivery:</b> meet farmers on the platform they already use daily.</li>
     <li><b>Cost path:</b> open-weight models on AMD-hosted inference keep per-farmer cost near zero &mdash; the unit economics of free advice.</li>
   </ul>

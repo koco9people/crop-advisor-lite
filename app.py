@@ -7,7 +7,7 @@ EXAMPLE_QUESTIONS = [
     "I have 5 acres in Multan, just harvested wheat. Water is short. What should I sow next?",
     "What is the sowing window for cotton in southern Punjab?",
     "Roughly how much does one acre of wheat cost to grow, seed to harvest?",
-    "میرے پاس فیصل آباد میں تین ایکڑ زمین ہے، ربیع میں کیا کاشت کروں؟",
+    "میرے پاس فیصل آباد میں تین ایکڑ زمین ہے، ربیع میں کیا کاشت کروں؟ (Urdu question — answered in English)",
 ]
 
 st.set_page_config(page_title="Crop Advisor Lite", page_icon="🌾")
@@ -16,7 +16,8 @@ with st.sidebar:
     st.title("🌾 Crop Advisor Lite")
     st.markdown(
         "AI crop advisory for Pakistani smallholder farmers - crop selection, "
-        "sowing windows, and input costs, in English or Urdu."
+        "sowing windows, and input costs. Understands English or Urdu questions; "
+        "always answers in English."
     )
     st.markdown(
         "**Stack:** gpt-oss-120b (open-weight) · Fireworks AI API (AMD-hosted inference) · Streamlit"
@@ -38,7 +39,7 @@ if "messages" not in st.session_state:
 
 
 st.title("Crop Advisor Lite")
-st.markdown("Ask about crops, sowing windows, or costs - in **English or Urdu**.")
+st.markdown("Ask about crops, sowing windows, or costs - in **English, or Urdu** (answers are always in English).")
 
 if not st.session_state.messages:
     st.markdown("**Try an example:**")

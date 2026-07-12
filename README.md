@@ -1,7 +1,8 @@
 # 🌾 Crop Advisor Lite
 
 AI crop advisory for Pakistani smallholder farmers — crop selection, sowing windows, and
-per-acre input costs, in **English or Urdu**.
+per-acre input costs. Understands English or Urdu questions; **always answers in
+English** (per this event's response-language rule).
 
 Built for the **AMD Developer Hackathon: ACT II** (Unicorn Track).
 
@@ -14,10 +15,12 @@ short. Extension services are stretched thin; advice travels by word of mouth.
 
 ## The solution
 
-A lightweight chat advisor that answers those questions in the farmer's own language.
-It gives decision-ready answers — named crops, months, and rupee ranges — and is honest
-about uncertainty: it refuses to invent market prices and directs high-stakes decisions
-(pesticide dosages, large investments) to the local agriculture extension office.
+A lightweight chat advisor that answers those questions in plain, decision-ready
+language — named crops, months, and rupee ranges. It understands questions in English
+or Urdu but always answers in English, and is honest about uncertainty: it refuses to
+invent market prices, and any pesticide-dosage question gets a deterministic (not just
+model-promised) referral to the local agriculture extension office (`core.py`'s
+`needs_safety_disclaimer` — a code-level guarantee, not just a prompt instruction).
 
 **Answers are grounded, not guessed.** Each question retrieves relevant passages
 (BM25 with crop-aware routing) from a 40-document corpus: Pakistani government
@@ -29,8 +32,9 @@ Agriculture context documents — every source labeled by country and tier in
 [corpus/SOURCES.md](corpus/SOURCES.md) so US content is never presented as
 Pakistani guidance. Answers cite sources inline as `[Source: title]`. Urdu
 questions retrieve both directly (the index tokenizes Arabic script) and via
-internal English translation, so they get cited answers too. When the corpus
-doesn't cover a question, the app says so instead of inventing a citation.
+internal English translation, so they get cited, English-language answers too.
+When the corpus doesn't cover a question, the app says so instead of inventing
+a citation.
 
 ## Stack — built on AMD
 
