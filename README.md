@@ -20,8 +20,10 @@ about uncertainty: it refuses to invent market prices and directs high-stakes de
 (pesticide dosages, large investments) to the local agriculture extension office.
 
 **Answers are grounded, not guessed.** Each question retrieves relevant passages
-(BM25 with crop-aware routing) from a 28-document corpus: Pakistani government
-policy analyses (wheat, rice, sugarcane), PCRWR research, FAO material, current
+(BM25 with crop-aware routing) from a 36-document corpus: Pakistani government
+policy analyses (wheat, rice, sugarcane), Economic Survey agriculture chapters,
+the Agricultural Statistics yearbook, PCRWR research, SUPARCO satellite crop
+estimates, Pakistan Business Council sector reports, FAO material, current
 cultivation guides, an Urdu-language census document, and US Department of
 Agriculture context documents — every source labeled by country and tier in
 [corpus/SOURCES.md](corpus/SOURCES.md) so US content is never presented as
@@ -84,8 +86,8 @@ seed rates, water-saving figures), plus behavioral probes: refusing to invent ma
 prices, referring pesticide dosages to extension services, and answering Urdu
 questions with citations.
 
-**Current score: 16/16** (re-verified after expanding the corpus from 9 to 28
-documents). Full answers are written to `eval/results.json` for audit.
+**Current score: 16/16** (re-verified after each corpus expansion: 9 → 28 → 36
+documents, 951 chunks). Full answers are written to `eval/results.json` for audit.
 Reproduce with:
 
 ```bash
