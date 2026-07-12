@@ -6,6 +6,13 @@ English** (per this event's response-language rule).
 
 Built for the **AMD Developer Hackathon: ACT II** (Unicorn Track).
 
+> **AMD compute usage:** every model call in this app runs on **Fireworks AI's
+> AMD-hosted inference platform** — `gpt-oss-120b` served on AMD Instinct GPUs. This is
+> not a fallback or an offline demo path: `FIREWORKS_API_KEY` + the default
+> `API_BASE_URL` (`api.fireworks.ai`) is the only inference path the app has, verified
+> end-to-end (see [Quickstart](#quickstart-docker--recommended) and
+> [Evaluation](#evaluation)).
+
 ## The problem
 
 Pakistan has over 8 million smallholder farms (1–12 acres). Most farmers have no
@@ -45,9 +52,25 @@ a citation.
 | App | Streamlit (Python) |
 | Packaging | Docker |
 
+## Code structure
+
+The main code path is `app.py` — start there.
+
+| File | Role |
+|---|---|
+| `app.py` | Streamlit UI — chat loop, example buttons, sources display. **Entry point.** |
+| `core.py` | Model calls (`ask_llm`, `ask_llm_stream`) and RAG grounding (`ground`) — shared by the app and the eval harness |
+| `retrieval.py` | BM25 retrieval over `corpus/`, with crop-name query routing |
+| `system_prompt.py` | The advisor's persona and behavior rules (English-only, safety, citation) |
+| `corpus/` | 40 source documents + `SOURCES.md` manifest |
+| `eval/` | `questions.jsonl` (16 test cases) + `run_eval.py` (reproducible scorer) |
+
 ## Quickstart (Docker — recommended)
 
-You need a [Fireworks AI](https://fireworks.ai) API key.
+You need a [Fireworks AI](https://fireworks.ai) API key: sign up at
+[fireworks.ai](https://fireworks.ai) → **Settings → API Keys → Create API Key**.
+Fireworks AI is the only external service this app calls — no database, no other
+API keys.
 
 ```bash
 docker build -t crop-advisor .
