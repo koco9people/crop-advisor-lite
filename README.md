@@ -6,12 +6,17 @@ English** (per this event's response-language rule).
 
 Built for the **AMD Developer Hackathon: ACT II** (Unicorn Track).
 
-> **AMD compute usage:** every model call in this app runs on **Fireworks AI's
-> AMD-hosted inference platform** — `gpt-oss-120b` served on AMD Instinct GPUs. This is
-> not a fallback or an offline demo path: `FIREWORKS_API_KEY` + the default
-> `API_BASE_URL` (`api.fireworks.ai`) is the only inference path the app has, verified
-> end-to-end (see [Quickstart](#quickstart-docker--recommended) and
-> [Evaluation](#evaluation)).
+> **AMD compute usage** (this project runs on AMD hardware two ways):
+> 1. **Inference** — every model call in the app runs on **Fireworks AI's AMD-hosted
+>    inference platform** (`gpt-oss-120b` on AMD Instinct GPUs). This is the only
+>    inference path the app has: `FIREWORKS_API_KEY` + the default `API_BASE_URL`
+>    (`api.fireworks.ai`), verified end-to-end (see [Quickstart](#quickstart-docker--recommended)
+>    and [Evaluation](#evaluation)).
+> 2. **Direct GPU compute** — [`notebooks/amd_compute_evidence.ipynb`](notebooks/amd_compute_evidence.ipynb),
+>    run on an **AMD Developer Cloud GPU pod**, embeds the project's 40-document corpus on
+>    an AMD Instinct GPU (the retrieval-upgrade path), with `rocm-smi` and on-GPU compute
+>    as proof. See [`notebooks/`](notebooks/) for the executed notebook and the AMD-pod
+>    screenshot.
 
 ## The problem
 
